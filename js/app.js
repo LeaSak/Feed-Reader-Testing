@@ -7,6 +7,7 @@
  */
 
 // The names and URLs to all of the feeds we'd like available.
+// New property === color
 var allFeeds = [{
     name: 'Udacity Blog',
     url: 'http://blog.udacity.com/feed',
@@ -30,6 +31,7 @@ var allFeeds = [{
  * function when the API is loaded.
  */
 function init() {
+    'use strict';
     // Load the first feed we've defined (index of 0).
     loadFeed(0);
 }
@@ -43,10 +45,10 @@ function init() {
  * which will be called after everything has run successfully.
  */
 function loadFeed(id, cb) {
+    'use strict';
     var feedUrl = allFeeds[id].url,
         feedName = allFeeds[id].name,
-        //new feature
-        feedColor = allFeeds[id].color;
+        feedColor = allFeeds[id].color; // New variable;
 
     $.ajax({
         type: "POST",
@@ -58,7 +60,6 @@ function loadFeed(id, cb) {
             var container = $('.feed'),
                 title = $('.header-title'),
                 entries = result.feed.entries,
-                entriesLen = entries.length,
                 entryTemplate = Handlebars.compile($('.tpl-entry').html());
 
             title.html(feedName); // Set the header text
@@ -73,9 +74,12 @@ function loadFeed(id, cb) {
                 container.append(entryTemplate(entry));
             });
 
-            // new feature
+            /*
+             * New Feature:
+             * Set background color values of header and slide-menu
+             */
             $('.header').css('background-color', feedColor);
-            $('.slide-menu').css('background-color', feedColor)
+            $('.slide-menu').css('background-color', feedColor);
 
             if (cb) {
                 cb();
@@ -101,8 +105,8 @@ google.setOnLoadCallback(init);
  * until the DOM is ready.
  */
 $(function() {
-    var container = $('.feed'),
-        feedList = $('.feed-list'),
+    'use strict';
+    var feedList = $('.feed-list'),
         feedItemTemplate = Handlebars.compile($('.tpl-feed-list-item').html()),
         feedId = 0,
         menuIcon = $('.menu-icon-link');
