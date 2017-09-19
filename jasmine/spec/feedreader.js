@@ -163,6 +163,7 @@ $(function() {
                 expect(first_header_color).not.toEqual(second_header_color);
                 // Compare menu color values.
                 expect(first_menu_color).not.toEqual(second_menu_color);
+                // Signal to jasmine that this test is async dependent.
                 done();
             });
         });
