@@ -9,16 +9,20 @@
 // The names and URLs to all of the feeds we'd like available.
 var allFeeds = [{
     name: 'Udacity Blog',
-    url: 'http://blog.udacity.com/feed'
+    url: 'http://blog.udacity.com/feed',
+    color: '#02b7e9'
 }, {
     name: 'CSS Tricks',
-    url: 'http://feeds.feedburner.com/CssTricks'
+    url: 'http://feeds.feedburner.com/CssTricks',
+    color: '#ff9800'
 }, {
     name: 'HTML5 Rocks',
-    url: 'http://feeds.feedburner.com/html5rocks'
+    url: 'http://feeds.feedburner.com/html5rocks',
+    color: '#4885ed'
 }, {
     name: 'Linear Digressions',
-    url: 'http://feeds.feedburner.com/udacity-linear-digressions'
+    url: 'http://feeds.feedburner.com/udacity-linear-digressions',
+    color: 'black'
 }];
 
 /* This function starts up our application. The Google Feed
@@ -40,7 +44,9 @@ function init() {
  */
 function loadFeed(id, cb) {
     var feedUrl = allFeeds[id].url,
-        feedName = allFeeds[id].name;
+        feedName = allFeeds[id].name,
+        //new feature
+        feedColor = allFeeds[id].color;
 
     $.ajax({
         type: "POST",
@@ -66,6 +72,10 @@ function loadFeed(id, cb) {
             entries.forEach(function(entry) {
                 container.append(entryTemplate(entry));
             });
+
+            // new feature
+            $('.header').css('background-color', feedColor);
+            $('.slide-menu').css('background-color', feedColor)
 
             if (cb) {
                 cb();
@@ -106,7 +116,6 @@ $(function() {
     allFeeds.forEach(function(feed) {
         feed.id = feedId;
         feedList.append(feedItemTemplate(feed));
-
         feedId++;
     });
 
@@ -116,7 +125,6 @@ $(function() {
      */
     feedList.on('click', 'a', function() {
         var item = $(this);
-
         $('body').addClass('menu-hidden');
         loadFeed(item.data('id'));
         return false;
