@@ -56,7 +56,7 @@ $(function() {
 
         // Checks to see if menu is hidden.
         it('should be hidden by default', function() {
-            expect(body.hasClass('menu-hidden')).toBe(true);
+            expect(body.hasClass('menu-hidden')).toBeTruthy();
         });
 
         // Checks if menu visiblity toggles when user interacts with icon.
@@ -64,11 +64,11 @@ $(function() {
             // Trigger click event on menu icon.
             menuicon.click();
             // Body shouldn't have menu-hidden class.
-            expect(body.hasClass('menu-hidden')).toBe(false);
+            expect(body.hasClass('menu-hidden')).toBeFalsy();
             // Trigger click event on menu icon.
             menuicon.click();
             // Body should have menu-hidden class
-            expect(body.hasClass('menu-hidden')).toBe(true);
+            expect(body.hasClass('menu-hidden')).toBeTruthy();
 
         });
 
@@ -79,7 +79,7 @@ $(function() {
             // Trigger click event on one element.
             $('.feed-list a:first').click();
             // Menu should now be hidden.
-            expect(body.hasClass('menu-hidden')).toBe(true);
+            expect(body.hasClass('menu-hidden')).toBeTruthy();
         });
 
 
@@ -98,11 +98,9 @@ $(function() {
             loadFeed(0, done);
         });
 
-        it('should have an .entry element', function(done) {
+        it('should have an .entry element', function() {
             var feedLen = $('.feed .entry').length;
             expect(feedLen).toBeGreaterThan(0);
-            // Signal to jasmine that this test is async dependent.
-            done();
         });
     });
 
@@ -113,7 +111,7 @@ $(function() {
         /*
          * Checks that the loadFeed() function triggers a content update.
          */
-        var first, first_header_color, first_menu_color;
+        var first, firstHeaderColor, firstMenuColor;
 
         /*
          * Trigger async function.
@@ -122,15 +120,10 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(0, function() {
                 first = $('.entry-link').attr('href');
-                first_header_color = $('.header').attr('style');
-                first_menu_color = $('.slide-menu').attr('style');
+                firstHeaderColor = $('.header').attr('style');
+                firstMenuColor = $('.slide-menu').attr('style');
                 done();
             });
-        });
-
-        // Reset default load to index 1.
-        afterAll(function(done) {
-            loadFeed(0, done);
         });
 
         /*
@@ -156,13 +149,13 @@ $(function() {
         it('should update header and menu background colors', function(done) {
             loadFeed(1, function() {
                 // Store a reference to header color.
-                var second_header_color = $('.header').attr('style');
+                var secondHeaderColor = $('.header').attr('style');
                 // Store a reference to menu color.
-                var second_menu_color = $('.slide-menu').attr('style');
+                var secondMenuColor = $('.slide-menu').attr('style');
                 // Compare header color values.
-                expect(first_header_color).not.toEqual(second_header_color);
+                expect(firstHeaderColor).not.toEqual(secondHeaderColor);
                 // Compare menu color values.
-                expect(first_menu_color).not.toEqual(second_menu_color);
+                expect(firstMenuColor).not.toEqual(secondMenuColor);
                 // Signal to jasmine that this test is async dependent.
                 done();
             });
