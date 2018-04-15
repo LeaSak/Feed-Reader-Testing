@@ -1,6 +1,10 @@
 # FEND Feed Reader Testing
 This is project six of the Frontend Web Development Nanodegree at Udacity. The aim of the project was to develop test suites using **jasmine.js** for a web-based application that reads RSS feeds. The tests should test the underlying business logic of the application as well as the event handling and DOM manipulation.
 
+<p align="center">
+  <img width="auto" height="auto" src="https://github.com/LeaSak/Feed-Reader-Testing/blob/master/screenshot-jasmine.png?raw=true" alt="Jasmine Results Screenshot">
+</p>
+
 ### Getting started
 ------
 
